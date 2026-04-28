@@ -70,10 +70,17 @@ const ActivityDetail = () => {
     }
     setSubmitting(true);
     const total = activity.price_cents * parsed.data.party_size;
+    const d = parsed.data;
     const { error } = await supabase.from("bookings").insert([{
       activity_id: activity.id,
       customer_id: user.id,
-      ...parsed.data,
+      customer_name: d.customer_name,
+      customer_email: d.customer_email,
+      customer_phone: d.customer_phone,
+      booking_date: d.booking_date,
+      booking_time: d.booking_time,
+      party_size: d.party_size,
+      notes: d.notes,
       total_cents: total,
       payment_status: (activity.online_payment_enabled && total > 0 ? "pending" : "not_required") as any,
     }]);
