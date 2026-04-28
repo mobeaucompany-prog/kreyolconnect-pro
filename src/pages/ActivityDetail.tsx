@@ -70,13 +70,13 @@ const ActivityDetail = () => {
     }
     setSubmitting(true);
     const total = activity.price_cents * parsed.data.party_size;
-    const { error } = await supabase.from("bookings").insert({
+    const { error } = await supabase.from("bookings").insert([{
       activity_id: activity.id,
       customer_id: user.id,
       ...parsed.data,
       total_cents: total,
-      payment_status: activity.online_payment_enabled && total > 0 ? "pending" : "not_required",
-    });
+      payment_status: (activity.online_payment_enabled && total > 0 ? "pending" : "not_required") as any,
+    }]);
     setSubmitting(false);
     if (error) {
       toast.error(error.message);
