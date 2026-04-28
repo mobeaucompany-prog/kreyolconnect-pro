@@ -106,7 +106,7 @@ const ProDashboard = () => {
       image_url: (fd.get("image_url") as string) || undefined,
     });
     if (!parsed.success) { toast.error(parsed.error.errors[0].message); return; }
-    const { error } = await supabase.from("businesses").insert([{ ...parsed.data, owner_id: user.id }]);
+    const { error } = await supabase.from("businesses").insert([{ ...(parsed.data as any), owner_id: user.id }]);
     if (error) toast.error(error.message);
     else { toast.success("Établissement créé !"); setOpenBiz(false); qc.invalidateQueries({ queryKey: ["pro-biz"] }); }
   };
@@ -125,7 +125,7 @@ const ProDashboard = () => {
       online_payment_enabled: fd.get("online_payment_enabled") === "on",
     });
     if (!parsed.success) { toast.error(parsed.error.errors[0].message); return; }
-    const { error } = await supabase.from("activities").insert([parsed.data]);
+    const { error } = await supabase.from("activities").insert([parsed.data as any]);
     if (error) toast.error(error.message);
     else { toast.success("Activité créée !"); setOpenAct(false); qc.invalidateQueries({ queryKey: ["pro-act"] }); }
   };
