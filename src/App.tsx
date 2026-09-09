@@ -276,7 +276,18 @@ function Dashboard() {
   return (
     <div className="app">
       <aside className={"sidebar " + (mobile ? "open" : "")}>
-        <a className="brand" href="#" onClick={() => setTab(0)}>
+        <a
+          className="brand"
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            closeCheckout();
+            setTab(0);
+            setQuery("");
+            setFilter("Tous");
+            setMobile(false);
+          }}
+        >
           <span>
             <Flame />
           </span>
