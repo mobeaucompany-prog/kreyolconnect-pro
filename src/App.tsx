@@ -282,10 +282,9 @@ function Dashboard() {
           onClick={(e) => {
             e.preventDefault();
             closeCheckout();
-            setTab(0);
-            setQuery("");
-            setFilter("Tous");
             setMobile(false);
+            window.history.pushState({}, "", "/");
+            window.dispatchEvent(new PopStateEvent("popstate"));
           }}
         >
           <span>
